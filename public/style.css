@@ -11,4 +11,10 @@
     overflow: auto;
     background-color: white;
     text-align: left;
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    margin-bottom: 5px;
 }

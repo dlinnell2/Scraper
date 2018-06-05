@@ -9,11 +9,8 @@ var request = require('request');
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
@@ -39,9 +36,11 @@ app.get('/saved', function(req, res){
 app.get('/save/:status/:id', function(req, res){
 
     db.Article.findOneAndUpdate(
+
         {_id:req.params.id},
         {saved:req.params.status},
         {new:true}
+
     ).then(function(results){
 
         res.json(results);
@@ -52,35 +51,28 @@ app.get('/save/:status/:id', function(req, res){
 
 app.get('/comments/:id', function(req, res){
 
-    db.Article.findOne({_id:req.params.id}).then(function(article){
+    db.Article.findOne({_id:req.params.id}).populate('comments').then(function(article){
         
         var results = {
             title: article.title,
             id: article._id,
+            comments: []
         }
 
-        console.log(article);
+        article.comments.forEach(function(element){
+            results.comments.push(element.body);
+        })
 
-        if(article.comments){
-            article.comments.forEach(function(element){
-                db.Comment.find({_id:element}).then(function(comment){
-                    results.comments.push(comment.body);
-                })
-            })
-        }
-
-        res.json(results)
+        res.json(results);
     });
 });
 
 app.post('/comments/:articleId', function(req, res){
 
     db.Comment.create(req.body).then(function(newComment){
-        console.log(newComment);
-
-        console.log(req.params.articleId);
 
         return db.Article.findOneAndUpdate({_id:req.params.articleId}, { $push: { comments: newComment._id } }, { new: true });
+
     }).then(function(updatedArticle){
         console.log(updatedArticle);
     })

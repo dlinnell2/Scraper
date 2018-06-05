@@ -23,13 +23,13 @@
 
             <div class='col-sm-2'>
 
-                <button class='btn btn-info text-center launch' data-id={{this.id}}>View comments</button>
+                <button type="button" class='btn btn-info text-center launch' data-id={{this.id}}>View comments</button>
 
             </div>
 
             <div class='col-sm-2'>
 
-                <button class='btn btn-danger text-center remove' id={{this.id}}>Remove article</button>
+                <button type="button" class='btn btn-danger text-center remove' id={{this.id}}>Remove article</button>
 
             </div>
 
@@ -59,14 +59,14 @@
                     <div class="form-group">
                         <label for="enterComment">Enter your comment here</label>
                         <input type="text" class="form-control" id="enterComment" placeholder="Type comment here">
+                        <button type="submit" class="btn btn-primary postComment">Post comment</button>
                     </div>
                 </form>
 
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary postComment">Post comment</button>
-                <button class="btn btn-secondary closeModal">Close</button>
+                <button type="button" class="btn btn-secondary closeModal">Close</button>
             </div>
         </div>
     </div>

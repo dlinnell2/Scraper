@@ -33,20 +33,22 @@ $(document).ready(function () {
 
             $('.modal-title').text(data.title);
             $('.postComment').data('id', id)
+            $('#commentWindow').empty();
 
             console.log(data);
 
-            console.log(data.comments);
-
-            if(data.comments){
+            if(data.comments.length > 0){
+                console.log('check');
                 data.comments.forEach(function(comment){
                     $('<div>').text(comment).appendTo('#commentWindow')
+
+                    $('#commentWindow').scrollTop($('#commentWindow')[0].scrollHeight);
                 })
             }
 
             $('#commentsModal').modal('show');
 
-        })
+        });
 
     });
 
@@ -58,22 +60,19 @@ $(document).ready(function () {
 
     $('.postComment').click(function(){
 
+        event.preventDefault();
+
         var text = $('#enterComment').val().trim();
-
         $('<div>').text(text).appendTo('#commentWindow');
-
         $('#enterComment').val('')
-
         $('#commentWindow').scrollTop($('#commentWindow')[0].scrollHeight)
 
         var articleId = $(this).data('id');
 
-        console.log(articleId);
-
         $.post(`/comments/${articleId}`, {body:text}, function(data){
             console.log(data);
-        })
+        });
 
-    })
+    });
 
 });
