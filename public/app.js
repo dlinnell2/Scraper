@@ -36,6 +36,8 @@ $(document).ready(function () {
 
             console.log(data);
 
+            console.log(data.comments);
+
             if(data.comments){
                 data.comments.forEach(function(comment){
                     $('<div>').text(comment).appendTo('#commentWindow')
