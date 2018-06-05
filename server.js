@@ -57,18 +57,17 @@ app.get('/comments/:id', function(req, res){
         var results = {
             title: article.title,
             id: article._id,
-            comments: []
         }
 
         console.log(article);
 
-        /* if(article[0].comments){
-            article[0].comments.forEach(function(element){
+        if(article.comments){
+            article.comments.forEach(function(element){
                 db.Comment.find({_id:element}).then(function(comment){
                     results.comments.push(comment.body);
                 })
             })
-        } */
+        }
 
         res.json(results)
     });

@@ -36,6 +36,12 @@ $(document).ready(function () {
 
             console.log(data);
 
+            if(data.comments){
+                data.comments.forEach(function(comment){
+                    $('<div>').text(comment).appendTo('#commentWindow')
+                })
+            }
+
             $('#commentsModal').modal('show');
 
         })
