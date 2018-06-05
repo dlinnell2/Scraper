@@ -1,0 +1,50 @@
+<div class='row header'>
+
+    <div class='col-sm-3'></div>
+
+    <div class='col-sm-6 text-center'>
+
+        <a class='btn btn-primary' href='/scrape'>Look for new articles</a>
+
+        <a class='btn btn-success' href='/saved'>View saved articles</a>
+
+    </div>
+
+    <div class='col-sm-3'></div>
+</div>
+
+{{#each articles}}
+
+<div class='card'>
+
+    <div class='card-header'>
+
+        <div class='row'>
+            <div class='col-sm-10'>
+                <a href={{this.link}}>
+                    <h4>{{this.title}}</h4>
+                </a>
+            </div>
+
+            <div class='col-sm-2 text-center'>
+
+                {{#unless this.saved}}
+                <button class='btn btn-primary text-center save' id={{this._id}}>Save article</button>
+                {{/unless}} 
+                
+                {{#if this.saved}}
+                <button class='btn btn-primary text-center' disabled id={{this.id}}>Article saved</button>
+                {{/if}}
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class='card-body'>
+        <p class='card-text'>{{this.summary}}</p>
+    </div>
+
+</div>
+
+{{/each}}

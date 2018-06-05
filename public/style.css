@@ -1,0 +1,14 @@
+.card {
+   margin-bottom: 8px; 
+}
+
+.header {
+    margin-bottom: 25px;
+}
+
+#commentWindow {
+    height: 150px;
+    overflow: auto;
+    background-color: white;
+    text-align: left;
+}
